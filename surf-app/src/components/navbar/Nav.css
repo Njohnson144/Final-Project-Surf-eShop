@@ -1,0 +1,181 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+
+nav {
+  font-family: "Roboto", sans-serif;
+  background-color: #099ede;
+  color: rgb(0, 0, 0);
+
+  display: flex;
+  flex-grow: 100;
+  justify-content: space-around;
+  
+  transition: 0.3s;
+  height: 3em;
+  padding-top: 1em;
+  margin: auto;
+  line-height: 2em;
+  
+  position: sticky;
+  top: 0;  
+
+  z-index: 2;
+}
+
+.nav-bar-right-root {
+  display: flex;
+  flex-direction: row;
+  gap: 2em;
+}
+
+
+nav .left,
+.right {
+  font-size: 1.25em;
+}
+
+nav.right>login {
+  font-size: .5em;
+
+}
+
+nav .flex {
+  display: flex;
+  flex-direction: row;
+  gap: 1em;
+}
+
+/* links */
+nav a {
+  color: inherit;
+  text-decoration: unset;
+  margin-left: 0.25rem;
+  height: fit-content;
+}
+
+/* links hovered */
+nav a:hover {
+  text-decoration: underline;
+}
+
+/* currently viewed link */
+nav a:active {
+  background-color: #f29405;
+  color: rgb(0, 0, 0);
+  transform: translateY(2px);
+  border-radius: 5px;
+}
+.home img {
+  max-width: 100%;
+  max-height: 100%;
+  min-width: 2em;
+  border-radius: 5px;
+  display: flex;
+  margin: auto;
+  position: sticky;
+  flex-shrink: 1 0 auto;
+ 
+
+
+}
+
+nav .home {
+ height: 2em;
+
+}
+
+.loginButton {
+  border-radius: 10px;
+  cursor: pointer;
+  color: black;
+  background-color: #f29405;
+}
+
+.loginButton:hover {
+  border-radius: 10px;
+  cursor: pointer;
+  
+  color: rgb(0, 0, 0);
+}
+
+.logoutButton {
+  border-radius: 5px;
+  cursor: pointer;
+  border: none;
+  background-color: #099ede;
+  color: rgb(0, 0, 0);
+  width: 5em;
+  height: 1.8em;
+  font-size: larger;
+}
+
+.logoutButton:hover {
+  
+  color: rgb(0, 0, 0);
+  text-decoration: underline;
+}
+
+.checkout {
+  background-color: #099ede;
+  color: rgb(0, 0, 0);
+  width: 2em;
+  border-radius: 5px;
+}
+
+.checkout:hover {
+  /* transform: translateY(2px); */
+  
+  
+}
+
+
+
+nav .dropdown-root {
+  color: black;
+  position: relative;
+}
+
+.dropdown-root .hoverable {
+  background-color: #099ede;
+  width: fit-content;
+}
+@media screen and (max-width: 450px) {
+  nav .flex.links {
+    display: none;
+   
+  }
+}
+
+
+
+.dropdown-root .dropdown-container {
+  position: relative;
+  width: fit-content;
+}
+
+.dropdown-root .hidden-menu {
+  width: fit-content;
+  display: none;
+  position: absolute;
+  left: 0;
+}
+
+.dropdown-root .to-right {
+  /*display abs...*/
+  left: 100%;
+  top: 0;
+}
+
+.dropdown-root .option {
+  background-color: #099ede;
+  /* padding: 0.5rem; */
+  width: 100%;
+  border-radius: 2px;
+}
+
+.dropdown-root .option:hover {
+  background-color: #f29405;
+}
+
+.dropdown-root .dropdown-container:hover>.hidden-menu {
+  display: block;
+}

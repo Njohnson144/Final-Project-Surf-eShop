@@ -1,94 +1,220 @@
 const db = require("../index");
 
-// exports.getRouteById = (req, res) => {
-//     let id = req.params.id;
-  
-//     const query = `
-//       SELECT * 
-//       FROM urls.urls 
-//       WHERE id = ?
-//          ;`;
-  
-//     const placeholders = [id];
-  
-//     db.query(query, placeholders, (err, results) => {
-//       if (err) {
-//         res.status(500).send({
-//           message: "There was an error finding ID.",
-//           error: err,
-//         });
-//       } else if (results.length == 0) {
-//         res.status(404).send({
-//           message: "no route found",
-//         });
-//       } else {
-//         res.send({
-//           message: "Your ID was found Successfully",
-//           url: results[0],
-//         });
-//       }
-//     });
-//   };
-  
-//   exports.getAllUrls = (req, res) => {
-    
-  
-//     const query = `
-//       SELECT * 
-//       FROM urls.urls
-//          ;`;
-  
-    
-  
-//     db.query(query, (err, results) => {
-//       if (err) {
-//         res.status(500).send({
-//           message: "There was an error finding URLs.",
-//           error: err,
-//         });
-//       } else if (results.length == 0) {
-//         res.status(404).send({
-//           message: "no route found",
-//         });
-//       } else {
-//         res.send({
-//           message: "Your URL was found Successfully",
-//           urls: results,
-//         });
-//       }
-//     });
-//   };
+exports.getAllProducts = (req, res) => {
+    const query = `SELECT * FROM surfshop.products;`;
+    db.query(query, (err, results) => {
   
   
-//   exports.createNewUrl = (req, res) => {
-//     let { id, url } = req.body;
+      if (err) {
+        res.status(500).send({
+          message: "There was an error getting your gnarly surf gear.",
+          error: err,
+        });
+      } else if (results.length == 0) {
+        res.status(404).send({
+          message: "No products found",
+        });
+      } else {
+        res.send({
+          products: results,
+        });
+      }
+    });
+  };
   
-//     if (!id || !url) {
-//       res.status(400).send({
-//         message: "404 not found.",
-//       });
-//       return;
-//     }
-//     console.log(req.body);
+  exports.getProductsById = (req, res) => {
   
-//     const query = `
-//     INSERT INTO urls.urls (id, url) 
-//     VALUES 
-//         (?, ?);`;
-//     const placeholders = [id, url];
+    let productId = req.params.id;
   
-//     db.query(query, placeholders, (err, results) => {
-//       console.log(results);
+    const query = `
+          SELECT * FROM surfshop.products
+              WHERE id = ? ;
+        `;
   
-//       if (err) {
-//         res.status(500).send({
-//           message: "There was an error creating a new url.",
-//           error: err,
-//         });
-//       } else {
-//         res.send({
-//           message: "Your URL was Created Successfully",
-//         });
-//       }
-//     });
-//   };
+    const placeholders = [productId];
+  
+    db.query(query, placeholders, (err, results) => {
+  
+      if (err) {
+        res.status(500)
+          .send({
+            message: "There was an error getting your gnarly surf gear.",
+            error: err,
+          });
+      } else if (results.length == 0) {
+        res.status(404).send({
+          message: "No products found",
+        });
+      } else {
+        res.send({
+          product: results[0],
+        });
+      }
+    });
+  };
+  
+  exports.getProductsByBrand = (req, res) => {
+  
+    let productBrand = req.params.brand;
+  
+    const query = `
+          SELECT * FROM surfshop.products
+              WHERE brand = ? ;
+        `;
+  
+    const placeholders = [productBrand];
+  
+    db.query(query, placeholders, (err, results) => {
+  
+      if (err) {
+        res.status(500)
+          .send({
+            message: "There was an error getting your brand.",
+            error: err,
+          });
+      } else if (results.length == 0) {
+        res.status(404).send({
+          message: "No brands found",
+        });
+      } else {
+        res.send({
+          products: results,
+        });
+      }
+    });
+  };
+  
+  exports.getProductsByStyle = (req, res) => {
+  
+    let productStyle = req.params.style;
+  
+    const query = `
+          SELECT * FROM surfshop.products
+              WHERE style = ? ;
+        `;
+  
+    const placeholders = [productStyle];
+  
+    db.query(query, placeholders, (err, results) => {
+  
+      if (err) {
+        res.status(500)
+          .send({
+            message: "There was an error getting your styling styles.",
+            error: err,
+          });
+      } else if (results.length == 0) {
+        res.status(404).send({
+          message: "No styles found",
+        });
+      } else {
+        res.send({
+          products: results,
+        });
+      }
+    });
+  };
+
+  exports.getProductsByCategory = (req, res) => {
+  
+    let productCategory = req.params.category;
+  
+    const query = `
+          SELECT * FROM surfshop.products
+              WHERE category = ? ;
+        `;
+  
+    const placeholders = [productCategory];
+  
+    db.query(query, placeholders, (err, results) => {
+  
+      if (err) {
+        res.status(500)
+          .send({
+            message: "There was an error getting your categories.",
+            error: err,
+          });
+      } else if (results.length == 0) {
+        res.status(404).send({
+          message: "No categories found",
+        });
+      } else {
+        res.send({
+          products: results,
+        });
+      }
+    });
+  };
+  
+  exports.getProductsByColor = (req, res) => {
+  
+    let productColor = req.params.color;
+  
+    const query = `
+          SELECT * FROM surfshop.products
+              WHERE color = ? ;
+        `;
+  
+    const placeholders = [productColor];
+  
+    db.query(query, placeholders, (err, results) => {
+  
+      if (err) {
+        res.status(500)
+          .send({
+            message: "There was an error getting your specified color.",
+            error: err,
+          });
+      } else if (results.length == 0) {
+        res.status(404).send({
+          message: "No colors found",
+        });
+      } else {
+        res.send({
+          products: results,
+        });
+      }
+    });
+  };
+  
+  
+  exports.getProductsByQuery = (req, res) => {
+  
+    var filters = ``;
+    var placeholders = []
+  
+    let entries = Object.entries(req.query)
+    for (let [key, value] of entries) {
+      filters += ` ?? LIKE ? AND`
+      placeholders.push(key, `%${value}%`);
+    }
+  
+    filters = filters.slice(0, -3);
+  
+    const query = `
+          SELECT * FROM surfshop.products
+          WHERE
+          ${filters}  
+          ;`;
+  
+    db.query(query, placeholders, (err, results) => {
+  
+      if (err) {
+        res.status(500)
+          .send({
+            message: 'There was an error getting pri',
+            error: err
+          });
+      } else if (results.length == 0) {
+        res.status(404)
+          .send({
+            message: 'No products found',
+            error: err
+          })
+      } else {
+        res.send({
+          products: results
+        });
+      }
+    });
+  }

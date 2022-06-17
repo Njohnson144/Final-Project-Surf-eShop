@@ -15,7 +15,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 require("./app/index");
 require("./app/routes/products.routes")(app);
 require("./app/routes/users.routes")(app);
-// require('.app/routes/foo.routes) (app);   this is what you copy/paste and then fill it in, dumb dumb
+require('./app/routes/transactions.routes')(app);
+// require('./app/routes/cartItems.routes')(app);
 
 const PORT = process.env.PORT || 8080;
 

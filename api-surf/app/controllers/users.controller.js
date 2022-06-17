@@ -1,8 +1,5 @@
 const db = require("../index");
 const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
-const { response } = require("express");
-const TOKEN_KEY = 4206969420;
 const { v4: uuid } = require('uuid');
 const saltRounds = 10;
 
@@ -17,7 +14,7 @@ exports.login = (req, res) => {
   }
 
   const query = `
-  SELECT * FROM urls.users
+  SELECT * FROM surfshop.users
     WHERE email = ?;
   `;
   const placeholders = [email];
@@ -42,21 +39,9 @@ exports.login = (req, res) => {
 
         let user = results[0];
 
-        const token = jwt.sign(
-          {
-            userId: user.id,
-            email: user.email,
-          },
-          'abc123',
-
-          {
-            expiresIn: "2h",
-          }
-        );
-        user.token = token;
 
         res.send({
-          message: "You have logged in brah/brahette/brahthem",
+          message: "You're logged in brah",
           user,
         });
       } else {
@@ -81,7 +66,7 @@ exports.createNewUser = async (req, res) => {
   const encryptedPassword = await bcrypt.hash(password, saltRounds);
 
   const query = `
-    INSERT INTO urls.users (id, email, password)
+    INSERT INTO surfshop.users (id, email, password)
         VALUES (?, ?, ?);
     `;
   const placeholders = [uuid(), email, encryptedPassword];
@@ -108,72 +93,7 @@ exports.createNewUser = async (req, res) => {
 };
 
 
-// exports.addBookToList = (req, res) => {
-    
-//     let { userId, bookId } = req.body;
-  
-//     if (!userId || !bookId) {
-//       res.status(400).send({
-//         message: "UserId and BookId was not defined",
-//       });
-//       return;
-//     }
-  
-//     const query = `
-//       INSERT INTO list_items (userId, bookId)
-//           VALUES (?, ?);
-//       `;
-//     const placeholders = [userId, bookId];
-  
-//     db.query(query, placeholders, (err, results) => {
-//       if (err) {
-//           res.status(500)
-//           .send({
-//               error: err,
-//             message:
-//               "There was an error creating your account. Please try again later.",
-//           });
-        
-//       } else {
-//         res.send({
-//           message: "Your book was sucessfully added! 👏",
-//         });
-//       }
-//     });
-//   };
 
-// exports.updateFavoriteBookById = async (req, res) => {
-//   let bookId = req.params.favoriteBookId;
-//   let userId = req.body.id;
-
-//   if (!bookId || !userId) {
-//     res.status(400).send({
-//       message: "User or Book was not defined",
-//     });
-//     return;
-//   }
-
-//   const query = ` 
-//     UPDATE urls.users 
-//         SET 
-//             favoriteBook = ?
-//         WHERE (id = ?);
-//   `;
-//   const placeholders = [bookId, userId];
-
-//   db.query(query, placeholders, (err, results) => {
-//     if (err) {
-//       res.status(500).send({
-//         message: "There was an error updating favorite book",
-//         error: err,
-//       });
-//     } else {
-//       res.send({
-//         message: "Your account was sucessfully updated! 👏",
-//       });
-//     }
-//   });
-// };
 
 exports.deleteUserById = (req, res) => {
   let { id } = req.params;
@@ -181,7 +101,7 @@ exports.deleteUserById = (req, res) => {
   id = Number(id);
 
   const query = ` 
-    DELETE FROM urls.users
+    DELETE FROM surfshop.users
          WHERE (id = ?)
          `;
   const placeholders = [id];
